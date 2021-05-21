@@ -27,26 +27,50 @@ const fi = (function() {
       return col
     },
 
-    reduce: function(collection, callback, acc) {
-      console.log(acc)
-      console.log(collection)
-      console.log(callback(2))
-      const initial = acc
-      let i
-      if (acc != null) {
-        for (i = 0; i < collection.length; i++) {
-          acc = callback(initial, collection[i], collection)
-        }
+    reduce: function(collection, callback, start) {
+      let acc
+      let index
+
+      if (start) {
+        acc = start
+        index = 0
       } else {
-        for (i = 0; i < collection.length; i++) {
-          acc = callback(0, collection[i], collection)
-        }
+        acc = collection[0]
+        index = 1
+      }
+      for (let i = index; i < collection.length; i++) {
+        acc = callback(acc, collection[i])
+        console.log(acc)
       }
       return acc
     },
 
-    functions: function() {
+    find: function(collection, predicate) {
+      for (let i = 0; i < collection.length; i++) {
+        if (predicate(collection[i])) {
+          return collection[i]
+        }
+      }
+      return undefined
+    },
 
+    filter: function(collection, predicate) {
+      let finalArray = []
+      for (let i = 0; i < collection.length; i++) {
+        if (predicate(collection[i])) {
+          finalArray.push(collection[i])
+        }
+      }
+      return finalArray
+    },
+
+
+    size: function(collection) {
+      var counter = 0
+      for (let i = 0; i < collection.length; i++) {
+        counter = counter + 1
+      }
+      return counter
     },
 
 
